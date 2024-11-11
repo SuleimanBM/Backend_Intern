@@ -3,6 +3,10 @@ const router = require("express").Router();
 
 const authenticateController = require("../controllers/authenticationController");
 
+
+
+
+
 router.post("/signup", authenticateController.signup);
 router.post("/login", authenticateController.login);
 router.get("/verify_email", authenticateController.verifyMail);

@@ -1,9 +1,14 @@
 const mongoose = require("mongoose");
-const connection = mongoose.createConnection(process.env.DATABASE_URL,{
+
+mongoose.connect(process.env.DATABASE_URL, {
     useNewUrlParser: true,
     useUnifiedTopology: true
-}).on('error', (error) => {
-    console.error(error);
 })
+.then(() => {
+    console.log("Connected to MongoDB Atlas!");
+})
+.catch((error) => {
+    console.error("Database connection error:", error);
+});
 
-module.exports = connection;
+module.exports = mongoose;

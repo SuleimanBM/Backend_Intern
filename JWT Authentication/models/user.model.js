@@ -13,7 +13,9 @@ const userSchema = new mongoose.Schema({
      */
     email: { 
         type: String, 
-        required: true 
+        required: true,
+        unique: [true, "Account already exists"],
+        
     },
     /**
      * The password of the user, which is hashed using bcrypt.

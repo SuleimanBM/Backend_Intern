@@ -22,6 +22,14 @@ exports.signup = async (req, res) => {
     try {
         const { email, password } = req.body;
 
+        let existingUser = await AuthenticationServices.FindUser(email);
+        if (existingUser) {
+            return res.status(400).json({
+                success: false,
+                message: "User already exists with this email",
+            });
+        }
+
         // Store user data in the database
         let user = await AuthenticationServices.storeUserData(email, password);
 
@@ -36,7 +44,7 @@ exports.signup = async (req, res) => {
         // Send an email with the JWT token to the user
         const link = `http://localhost:3000/auth/verify_email?token=${token}`
         const message = `Please click on the link ${link} to verify your email\n\n\n Please ignore this email if you did not initiate this process`
-        EmailServices.sendEmail(email, message)
+        /*EmailServices.sendEmail(email, message)*/
         return res.status(200).json({
             message: 'Account created successfully',
             token: token,

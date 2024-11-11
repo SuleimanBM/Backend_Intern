@@ -4,6 +4,10 @@ const userModel = require("../models/user.model");
 class AuthenticationServices {
     // Store user data in the database
     static async storeUserData(email, password) {
+        const checkExistance = await userModel.findOne({ email: email });
+        if (checkExistance) {
+            return "user already exists"
+        }
         const user = await new userModel({ email, password });
         return user.save();
     }
@@ -26,7 +30,7 @@ class AuthenticationServices {
     // Find a user by their email
     static async FindUser(field) {
         const user = await userModel.findOne({ email: field });
-        console.log(`Found user: ${user}`);
+        /*console.log(`Found user: ${user}`);*/
         return user;
     }
 
