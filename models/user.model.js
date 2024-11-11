@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const db = require('../config/db');
 const { Schema } = mongoose;
-const bcrypt = require("bcrypt");
+const bcrypt = require("bcryptjs");
 
 /**
  * This is the schema for the user model in the database.
